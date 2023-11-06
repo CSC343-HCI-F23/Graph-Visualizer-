@@ -57,6 +57,31 @@ function renderGraph(graphData) {
             }
         });
 
+        const deleteNodeButton = document.getElementById("deleteNodeButton");
+        deleteNodeButton.addEventListener("click", () => {
+            const inputValue =
+                document.getElementById("delete-node-input").value;
+            graphView.removeNode(inputValue);
+        });
+
+        const deleteEdgeButton = document.getElementById("deleteEdgeButton");
+        deleteEdgeButton.addEventListener("click", () => {
+            const source = document.getElementById("delete-source").value;
+            const target = document.getElementById("delete-target").value;
+            graphView.removeEdge(source, target);
+        });
+
+        const modifyNodeButton = document.getElementById("modifyNodeButton");
+        modifyNodeButton.addEventListener("click", () => {
+            const nodeToModify =
+                document.getElementById("modify-node-input").value;
+            const inputType =
+                document.getElementById("modifytypeselector").value;
+            const inputContent =
+                document.getElementById("content-to-modify").value;
+            graphView.modifyNode(nodeToModify, inputType, inputContent);
+        });
+
         interactiveGraph = graphView;
     } else {
         graphView = interactiveGraph;
@@ -65,6 +90,33 @@ function renderGraph(graphData) {
         graphView.startSim(graphView.height);
     }
 }
+
+// // Function to delete a node by its ID
+// function deleteNode(nodeId) {
+//     interactiveGraph.nodes = interactiveGraph.nodes.filter(
+//         (node) => node.id !== nodeId
+//     );
+//     interactiveGraph.edges = interactiveGraph.edges.filter(
+//         (edge) => edge.source.id !== nodeId && edge.target.id !== nodeId
+//     );
+//     // Re-render the graph
+//     renderGraph({
+//         nodes: interactiveGraph.nodes,
+//         edges: interactiveGraph.edges,
+//     });
+// }
+
+// let selectedNode = document.getElementById("delete-input");
+// console.log(selectedNode);
+
+// // Add event listeners to the UI or use existing interaction logic
+// document.getElementById("deleteNodeButton").addEventListener("click", () => {
+//     if (selectedNode) {
+//         console.log("hehe", selectedNode.value);
+//         deleteNode(selectedNode.value);
+//         selectedNode = null; // Reset the selected node
+//     }
+// });
 
 /*
     Function to fetch the JSON data from output_graph.json & call the renderGraph() method
@@ -146,7 +198,7 @@ function displayGraphStatistics(graphObj) {
         document.getElementById("numComponents").innerHTML = connectedComponent;
         document.getElementById("graphDensity").innerHTML = density;
         document.getElementById("diameter").innerHTML = diameter;
-        document.getElementById("Average APL").innerHTML = avgAPL;
+        document.getElementById("avgAPL").innerHTML = avgAPL;
     }
 
     let statButton = document.getElementById("computeStats");

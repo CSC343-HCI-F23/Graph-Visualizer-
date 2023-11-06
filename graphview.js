@@ -19,6 +19,39 @@ class GraphView {
         this.layout = "fda";
     }
 
+    removeNode(nodeId) {
+        this.nodes = this.nodes.filter((node) => node.id !== nodeId);
+        this.edges = this.edges.filter(
+            (edge) => edge.source.id !== nodeId && edge.target.id !== nodeId
+        );
+        this.draw();
+    }
+
+    // tt0353969
+    // tt6751668
+
+    removeEdge(source, target) {
+        this.edges = this.edges.filter(
+            (edge) =>
+                !(
+                    (edge.source.id === source && edge.target.id === target) ||
+                    (edge.source.id === target && edge.target.id === source)
+                )
+        );
+        this.draw();
+    }
+
+    modifyNode(nodeId, type, content) {
+        let node = this.nodes.find((node) => node.id === nodeId);
+        if (node) {
+            node[type] = content;
+            console.log(node[type]);
+            this.draw();
+        } else {
+            alert("node not found");
+        }
+    }
+
     setGraph(nodes, edges) {
         this.nodes = JSON.parse(JSON.stringify(nodes));
         this.edges = JSON.parse(JSON.stringify(edges));
@@ -297,17 +330,19 @@ class GraphView {
                 tooltip
                     .html(
                         `
-            <img src="${d.img_link}" alt="Movie Poster" style="max-width:100px;"/>
-            <div><strong>Name:</strong> ${d.name}</div>
-            <div><strong>ID:</strong> ${d.id}</div>
-            <div><strong>Rank:</strong> ${d.rank}</div>
-            <div><strong>Year:</strong> ${d.year}</div>
-            <div><strong>IMDB Rating:</strong> ${d.imdb_rating}</div>
-            <div><strong>Duration:</strong> ${d.duration}</div>
-            <div><strong>Genre/s:</strong> ${d.genre}</div>
-            <div><strong>Director/s:</strong> ${d.director_name}</div>
-            <div><strong>Writers/s:</strong> ${d.writter_name}</div>
-            <div><strong>Cast/s:</strong> ${d.cast_name}</div>
+            <img src="${
+                d.img_link || "N/A"
+            }" alt="Movie Poster" style="max-width:100px;"/>
+            <div><strong>Name:</strong> ${d.name || "N/A"}</div>
+            <div><strong>ID:</strong> ${d.id || "N/A"}</div>
+            <div><strong>Rank:</strong> ${d.rank || "N/A"}</div>
+            <div><strong>Year:</strong> ${d.year || "N/A"}</div>
+            <div><strong>IMDB Rating:</strong> ${d.imdb_rating || "N/A"}</div>
+            <div><strong>Duration:</strong> ${d.duration || "N/A"}</div>
+            <div><strong>Genre/s:</strong> ${d.genre || "N/A"}</div>
+            <div><strong>Director/s:</strong> ${d.director_name || "N/A"}</div>
+            <div><strong>Writers/s:</strong> ${d.writter_name || "N/A"}</div>
+            <div><strong>Cast/s:</strong> ${d.cast_name || "N/A"}</div>
         `
                     )
                     .style("left", e.pageX + "px")

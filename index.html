@@ -113,6 +113,7 @@
                     </p>
                     <p>Graph Density: <span id="graphDensity"></span></p>
                     <p>Graph Diameter: <span id="diameter"></span></p>
+                    <p>Graph AvgAPL: <span id="avgAPL"></span></p>
                 </div>
                 <select id="labelTypeSelector">
                     <option value="id">Movie ID</option>
@@ -123,6 +124,54 @@
                 <button id="showText">Show Labels</button>
                 <button id="largestComp">Extract largest component</button>
                 <button id="switchLayout">Switch layout</button>
+                <br />
+
+                <div>
+                    <input
+                        id="delete-node-input"
+                        type="delete a node"
+                        placeholder="Delete a node"
+                        aria-label="delete a node" />
+                    <button id="deleteNodeButton">deleteNodeButton</button>
+
+                    <input
+                        id="delete-source"
+                        type="delete an edge"
+                        placeholder="source to delete"
+                        aria-label="delete an edge" />
+                    <input
+                        id="delete-target"
+                        type="delete an edge"
+                        placeholder="target to delete"
+                        aria-label="delete an edge" />
+                    <button id="deleteEdgeButton">deleteEdgeButton</button>
+                </div>
+
+                <div>
+                    <select id="modifytypeselector">
+                        <option value="id">Movie ID</option>
+                        <option value="name">Movie Name</option>
+                        <option value="genre">Genres</option>
+                        <option value="director_name">Director Names</option>
+                        <option value="cast_name">Cast Names</option>
+                        <option value="writter_name">Writer Names</option>
+                        <option value="img_link">Img Link</option>
+                        <option value="rank">Rank</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                    <input
+                        id="modify-node-input"
+                        type="modify-node-input"
+                        placeholder="modify-node-input"
+                        aria-label="modify-node-input" />
+                    <input
+                        id="content-to-modify"
+                        type="content-to-modify"
+                        placeholder="content-to-modify"
+                        aria-label="content-to-modify" />
+                    <button id="modifyNodeButton">modify node</button>
+                </div>
+
                 <div id="tooltip" class="tooltip" style="opacity: 0"></div>
             </div>
             <div class="column" id="graphviz">
